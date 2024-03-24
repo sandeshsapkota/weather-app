@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import { weekdays } from '@/utils/constants/common';
+
 /**
  * Generates an array of incremental numbers from 1 to the limit.
  * @param limit - The upper limit of the array.
@@ -20,4 +23,15 @@ const addCommasToNumber = (number: number) => {
   return number.toLocaleString();
 };
 
-export { generateIncrementalArray, addCommasToNumber };
+/**
+ * Finds and returns the day of the week for the given date.
+ *
+ * @param {string} date - The date for which to find the day of the week.
+ * @return {string} The day of the week corresponding to the input date.
+ */
+
+const findDay = (date: string) => {
+  return weekdays[dayjs(date).day()];
+};
+
+export { generateIncrementalArray, addCommasToNumber, findDay };

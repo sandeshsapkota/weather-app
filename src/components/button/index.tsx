@@ -32,7 +32,7 @@ const PrimaryButton: React.FC<PropsWithChildren<ButtonProps>> = (props) => {
       'font-sans text-xs font-bold capitalize transition-all ' +
       ' disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none',
     {
-      'text-white bg-black hover:bg-black/80': type === 'primary',
+      'text-white bg-primary-600 hover:bg-primary/80': type === 'primary',
       'text-gray-500 bg-gray-100 hover:bg-gray-200 ': type === 'secondary',
     },
     className,

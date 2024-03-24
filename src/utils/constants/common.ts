@@ -1,3 +1,11 @@
-const ADMIN_HOME_PAGE = '/dashboard';
+const weekdays = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
-export { ADMIN_HOME_PAGE };
+export { weekdays };
