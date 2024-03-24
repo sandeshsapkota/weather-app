@@ -29,9 +29,7 @@ const Index = () => {
       groupBy(forecastData, (obj: ForeCastType) => obj.dt_txt.split(' ')[0])) ||
     {};
 
-  const todayForeCast = groupedForeCastByDays[
-    dayjs().format('YYYY-MM-DD')
-  ] as unknown as ForeCastType;
+  const todayForeCast = groupedForeCastByDays[dayjs().format('YYYY-MM-DD')];
 
   return (
     <div className="min-h-screen pb-8 bg-charade-700 text-white">
@@ -40,24 +38,22 @@ const Index = () => {
           setCoordinates={setLocation}
           setUserLocation={setUserLocation}
         />
-        <div className="p-6 sm:p-8 bg-charade-600 rounded-xl">
-          {location?.lat ? (
-            <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 ">
-              <CurrentCityWeather
-                weather={weatherData}
-                location={location}
-                isLoading={isWeatherLoading}
-                todayForeCast={todayForeCast}
-              />
-              <ForCastDays
-                isLoading={isForecastLoading}
-                forecastDays={groupedForeCastByDays}
-              />
-            </div>
-          ) : (
-            <WeatherPlaceholder />
-          )}
-        </div>
+        {location?.lat ? (
+          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 ">
+            <CurrentCityWeather
+              weather={weatherData}
+              location={location}
+              isLoading={isWeatherLoading}
+              todayForeCast={todayForeCast}
+            />
+            <ForCastDays
+              isLoading={isForecastLoading}
+              forecastDays={groupedForeCastByDays}
+            />
+          </div>
+        ) : (
+          <WeatherPlaceholder />
+        )}
       </div>
     </div>
   );

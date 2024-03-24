@@ -24,7 +24,7 @@ const ForeCastDays = (props: ForCastDaysType) => {
   };
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4  bg-charade-500 p-6 rounded-xl">
       <h2>Weekly Forecast</h2>
       <div className="grid gap-4">
         {isLoading ? renderSkeleton() : renderList()}

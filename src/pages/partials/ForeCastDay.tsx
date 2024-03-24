@@ -6,6 +6,7 @@ import {
   TemperatureIcon,
   WindIcon,
 } from '@/components/icons';
+import { getWeatherIconUrl } from '@/utils/helpers/weather.utils';
 
 const ForeCastDays = ({ day }: { day: ForeCastType }) => {
   /*
@@ -17,12 +18,16 @@ const ForeCastDays = ({ day }: { day: ForeCastType }) => {
   const { description } = weather[0];
 
   const { humidity, temp: temperature } = main;
+  console.log(day?.weather[0].main);
 
   return (
-    <div className="bg-charade-500 py-2.5 px-3 rounded grid grid-cols-3 gap-2 text-sm">
-      <div>
+    <div className="bg-charade-600 py-2.5 px-3 rounded grid grid-cols-3 gap-2 text-sm">
+      <div className="flex flex-col gap-2">
         <b> {weekday}</b>
-        <p className="text-sm capitalize">{description}</p>
+        <div className="flex items-center gap-1.5">
+          <img className="w-8" src={getWeatherIconUrl(day)} alt="weather" />
+          <p className="text-sm capitalize">{description}</p>
+        </div>
       </div>
       <div className="grid gap-0.5">
         <div className="flex gap-2">

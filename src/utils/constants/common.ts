@@ -8,4 +8,12 @@ const weekdays = [
   'Saturday',
 ];
 
-export { weekdays };
+const WEATHER_STATUS = {
+  CLOUDS: 'Clouds',
+  RAIN: 'Rain',
+  CLEAR: 'Clear',
+  SNOW: 'Snow',
+  THUNDERSTORM: 'Thunderstorm',
+};
+
+export { weekdays, WEATHER_STATUS };
