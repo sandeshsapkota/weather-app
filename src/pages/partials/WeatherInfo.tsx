@@ -8,11 +8,11 @@ interface WeatherInfoProps {
 
 const WeatherInfo = ({ icon, label, value }: WeatherInfoProps) => {
   return (
-    <div className="flex gap-2 bg-charade-600 p-6 rounded-xl">
+    <div className="flex flex-col sm:flex-row gap-3 items-center justify-center bg-charade-600 p-4 sm:p-6 rounded-xl">
       {icon}
-      <div>
-        <p className="text-sm opacity-80">{label}</p>
-        <b className="text-lg">{value}</b>
+      <div className="text-center">
+        <b className="text-xs sm:text-xl">{value}</b>
+        <p className="text-xs sm:text-base opacity-80">{label}</p>
       </div>
     </div>
   );

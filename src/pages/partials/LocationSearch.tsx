@@ -52,15 +52,10 @@ const LocationSearch = (props: LocationProp) => {
   const handleChange = ({ label, lon, lat }: SuggestionType) =>
     setCoordinates({ lon, lat, name: label.split(',')[0] });
 
-  /*
-   * handle selection clear
-   * */
-  const handleClear = () => setUserLocation();
-
   return (
-    <div className="grid gap-6 sm:grid-cols-3 py-6 sm:py-8">
+    <div className="flex gap-6 flex-wrap justify-between py-6 sm:py-8">
       <Logo />
-      <div className="sm:col-span-2 flex gap-4">
+      <div className="w-full sm:w-[500px] flex gap-4">
         <div className="flex-1">
           <CustomAsyncSelect
             placeholder="Search by a city name"
@@ -68,7 +63,7 @@ const LocationSearch = (props: LocationProp) => {
             handleChange={handleChange}
           />
         </div>
-        <Button className="px-6" onClick={handleClear}>
+        <Button className="px-6" onClick={setUserLocation}>
           Clear
         </Button>
       </div>

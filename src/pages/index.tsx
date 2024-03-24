@@ -32,14 +32,14 @@ const Index = () => {
   const todayForeCast = groupedForeCastByDays[dayjs().format('YYYY-MM-DD')];
 
   return (
-    <div className="min-h-screen pb-8 bg-charade-700 text-white">
-      <div className="container grid gap-6 ">
+    <div className="min-h-screen pb-8 bg-charade-700">
+      <div className="container grid gap-2 ">
         <LocationSearch
           setCoordinates={setLocation}
           setUserLocation={setUserLocation}
         />
         {location?.lat ? (
-          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 ">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 ">
             <CurrentCityWeather
               weather={weatherData}
               location={location}

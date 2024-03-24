@@ -16,7 +16,7 @@ const CurrentCityWeather = (props: CurrentCityWeatherType) => {
   const { todayForeCast, weather, location, isLoading } = props;
   return (
     <div className="grid gap-8">
-      <div className="grid gap-6 bg-charade-500 p-6 rounded-xl ">
+      <div className="grid gap-6 bg-charade-500 p-4 sm:p-6 rounded-xl ">
         <WeatherLocationInfo location={location} weather={weather} />
         <WeatherDisplay weather={weather} isLoading={isLoading} />
       </div>
