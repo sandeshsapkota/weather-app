@@ -1,14 +1,20 @@
 import dayjs from 'dayjs';
 import { ForeCastType } from '@/@types/weather';
 import ForeCastDay from '@/pages/partials/ForeCastDay';
+import ErrorComponent from '@/components/error/ErrorComponent';
 
 type ForCastDaysType = {
   isLoading: boolean;
+  hasError: boolean;
   forecastDays: { [key: string]: ForeCastType[] };
 };
 
 const ForeCastDays = (props: ForCastDaysType) => {
-  const { isLoading, forecastDays } = props;
+  const { isLoading, hasError, forecastDays } = props;
+
+  if (hasError) {
+    return <ErrorComponent />;
+  }
 
   /*
    * each day has multiple forecasts

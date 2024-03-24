@@ -1,11 +1,12 @@
-import { getCountry } from 'iso-3166-1-alpha-2';
+import {getCountry} from 'iso-3166-1-alpha-2';
+import {debounce} from 'lodash';
 import LocationService from '@/services/location.service';
 import CustomAsyncSelect from '@/components/async-select';
 
-import { CityType } from '@/@types/weather';
-import { LocationType, LatLonType } from '@/@types/common';
+import {CityType} from '@/@types/weather';
+import {LatLonType, LocationType} from '@/@types/common';
 import Logo from '@/components/logo';
-import { Button } from '@/components';
+import {Button} from '@/components';
 
 type LocationProp = {
   setCoordinates: (value: LocationType) => void;
@@ -35,15 +36,22 @@ const LocationSearch = (props: LocationProp) => {
     return [];
   };
 
-  const fetchSuggestions = async (
-    query: string,
-  ): Promise<SuggestionType[] | []> => {
-    if (!query) {
-      return [];
+  /*
+   * fetch city with debounce implementation and formatting response
+   * */
+  const debounceFetchSuggestion = debounce((query, callback) => {
+    if (query) {
+      LocationService.fetchCities(query).then((options) =>
+        callback(formatData(options)),
+      );
     }
-    return LocationService.fetchCities(query).then((res) =>
-      formatData(res as CityType[]),
-    );
+  }, 400);
+
+  const fetchSuggestion = (input: string, callback: any) => {
+    if (!input) {
+      return callback(null, { options: [] });
+    }
+    return debounceFetchSuggestion(input, callback);
   };
 
   /*
@@ -59,7 +67,7 @@ const LocationSearch = (props: LocationProp) => {
         <div className="flex-1">
           <CustomAsyncSelect
             placeholder="Search by a city name"
-            fetchHandler={fetchSuggestions}
+            fetchHandler={fetchSuggestion}
             handleChange={handleChange}
           />
         </div>

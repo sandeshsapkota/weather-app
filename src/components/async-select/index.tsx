@@ -1,6 +1,5 @@
 import AsyncSelect from 'react-select/async';
 import { CSSObjectWithLabel } from 'react-select';
-import { SuggestionType } from '@/pages/partials/LocationSearch';
 import { SearchIcon } from '@/components/icons';
 
 const CustomAsyncSelect = ({
@@ -8,7 +7,7 @@ const CustomAsyncSelect = ({
   handleChange,
   placeholder,
 }: {
-  fetchHandler: (input: string) => Promise<SuggestionType[] | []>;
+  fetchHandler: (query: string, callback: (data: any) => void) => void;
   handleChange: (value: any) => void;
   placeholder?: string;
 }) => {

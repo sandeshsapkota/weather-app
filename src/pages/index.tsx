@@ -12,13 +12,14 @@ import { ForeCastType } from '@/@types/weather';
 
 const Index = () => {
   const { location, setLocation, setUserLocation } = useLocationData();
-  const { data: weatherData, isLoading: isWeatherLoading } = useQuery({
+
+  const { data: weatherData, isLoading: isWeatherLoading, error:hasWeatherError } = useQuery({
     queryKey: ['weather-data', location],
     queryFn: () => WeatherService.fetchWeather(location as LocationType),
     enabled: Boolean(location),
   });
 
-  const { data: forecastData, isLoading: isForecastLoading } = useQuery({
+  const { data: forecastData, isLoading: isForecastLoading, error:hasForecastError } = useQuery({
     queryKey: ['forecast-data', location],
     queryFn: () => WeatherService.fetchForecast(location as LocationType),
     enabled: Boolean(location),
@@ -39,16 +40,18 @@ const Index = () => {
           setUserLocation={setUserLocation}
         />
         {location?.lat ? (
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 ">
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
             <CurrentCityWeather
               weather={weatherData}
               location={location}
               isLoading={isWeatherLoading}
               todayForeCast={todayForeCast}
+              hasError={Boolean(hasWeatherError)}
             />
             <ForCastDays
               isLoading={isForecastLoading}
               forecastDays={groupedForeCastByDays}
+              hasError={Boolean(hasForecastError)}
             />
           </div>
         ) : (

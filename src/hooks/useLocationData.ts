@@ -3,9 +3,9 @@ import { LocationType } from '@/@types/common';
 
 const useLocationData = () => {
   const [location, setLocation] = useState<LocationType | undefined>(undefined);
-  const [defaultLocation, setDefaultLocation] = useState<LocationType | undefined>(
-    undefined,
-  );
+  const [defaultLocation, setDefaultLocation] = useState<
+    LocationType | undefined
+  >(undefined);
 
   const handleUserLocation = () => {
     if (navigator.geolocation) {
@@ -16,6 +16,7 @@ const useLocationData = () => {
             lat: position.coords.latitude,
             name: '',
           };
+          console.log('user accepted location.');
           setLocation(userLocation);
           setDefaultLocation(userLocation);
         },
