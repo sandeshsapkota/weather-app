@@ -1,31 +1,43 @@
 import AsyncSelect from 'react-select/async';
 import { CSSObjectWithLabel } from 'react-select';
-import { SearchIcon } from '@/components/icons';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 
-const CustomAsyncSelect = ({
-  fetchHandler,
-  handleChange,
-  placeholder,
-}: {
+type SelectPropTypes = {
   fetchHandler: (query: string, callback: (data: any) => void) => void;
   handleChange: (value: any) => void;
   placeholder?: string;
-}) => {
+};
+
+const CustomAsyncSelect = forwardRef(function CustomAsyncSelect(
+  { fetchHandler, handleChange, placeholder }: SelectPropTypes,
+  ref,
+) {
+  const [value, setValue] = useState(undefined);
+
+  const handleOnChange = (value: any) => {
+    setValue(value);
+    handleChange(value);
+  };
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        clearInput: () => setValue(undefined),
+      };
+    },
+    [],
+  );
+
   return (
     <AsyncSelect
       placeholder={placeholder}
       cacheOptions
       defaultOptions
       loadOptions={fetchHandler}
-      onChange={handleChange}
-      components={{
-        DropdownIndicator: () => (
-          <div className="pr-3 text-gray-700">
-            <SearchIcon className="w-[18px] h-[18px]" />
-          </div>
-        ),
-        IndicatorSeparator: null,
-      }}
+      onChange={handleOnChange}
+      value={value}
+      key={value}
       styles={{
         control: (provided: CSSObjectWithLabel) => ({
           ...provided,
@@ -42,5 +54,6 @@ const CustomAsyncSelect = ({
       }}
     />
   );
-};
+});
+
 export default CustomAsyncSelect;

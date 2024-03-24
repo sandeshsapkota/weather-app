@@ -16,10 +16,7 @@ const WeatherLocationInfo = ({
   const { name, weather: weatherList } = weather || {};
 
   const description = weatherList?.length ? weatherList[0].description : '';
-
-  const currentLocation = `${name} ${location?.name}, ${
-    weather?.sys.country ? getCountry(weather.sys.country) : ''
-  }`;
+  const country = weather?.sys.country ? getCountry(weather.sys.country) : '';
   const dateToday = dayjs().format('dddd D MMMM');
 
   if (weather) {
@@ -27,7 +24,7 @@ const WeatherLocationInfo = ({
       <div className="flex gap-6 flex-wrap items-start justify-between">
         <div>
           <h2 className="text-2xl sm:text-3xl font-semibold">
-            {currentLocation}
+            {`${name} ${name !== location?.name ? location?.name : ''}, ${country}`}
           </h2>
           <p className="text-lg font-medium">{dateToday}</p>
         </div>

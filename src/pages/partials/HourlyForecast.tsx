@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { ForeCastType } from '@/@types/weather';
 import { WindIcon } from '@/components/icons';
 import { getWeatherIconUrl } from '@/utils/helpers/weather.utils';
+import Skeletons from '@/components/skeletons';
 
 type WeatherTodayTypes = {
   todayForeCast: ForeCastType[] | undefined;
@@ -30,17 +31,21 @@ const HourlyForeCastItem = ({ hour }: HourlyForeCastType) => {
 
 const HourlyForecast = (props: WeatherTodayTypes) => {
   const { todayForeCast, isLoading } = props;
-  console.log(isLoading);
+
   return (
-    <div className="bg-charade-500 p-4 sm:p-6 rounded-xl flex flex-col gap-6">
-      <h2 className="font-bold text-lg">
+    <div className="mt-auto bg-charade-500 p-4 sm:p-6 rounded-xl flex flex-col gap-6">
+      <h2 className="font-semibold text-lg">
         {todayForeCast?.length} forecasts available
       </h2>
       <div className="grid gap-5 grid-cols-2 lg:grid-cols-4 flex-1">
-        {todayForeCast?.length &&
+        {isLoading ? (
+          <Skeletons count={4} classes="sm:h-[240px]" />
+        ) : (
+          todayForeCast?.length &&
           todayForeCast.map((hourForecast) => (
             <HourlyForeCastItem key={hourForecast.dt} hour={hourForecast} />
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

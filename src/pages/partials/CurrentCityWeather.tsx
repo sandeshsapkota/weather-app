@@ -27,7 +27,10 @@ const CurrentCityWeather = (props: CurrentCityWeatherType) => {
         <WeatherLocationInfo location={location} weather={weather} />
         <WeatherDisplay weather={weather} isLoading={isLoading} />
       </div>
-      <HourlyForecast todayForeCast={todayForeCast} isLoading={isLoading} />
+      <HourlyForecast
+        todayForeCast={todayForeCast?.slice(0, 4)}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { WeatherType } from '@/@types/weather';
 
 import { HumidityIcon, TemperatureIcon, WindIcon } from '@/components/icons';
 import WeatherInfo from '@/pages/partials/WeatherInfo';
+import Skeletons from '@/components/skeletons';
 
 type CurrentCityWeatherType = {
   weather: WeatherType | undefined;
@@ -11,7 +12,6 @@ type CurrentCityWeatherType = {
 const WeatherDisplay = ({ isLoading, weather }: CurrentCityWeatherType) => {
   const { wind, clouds, main } = weather ?? {};
   const humidity = main?.humidity;
-  console.log(isLoading);
   const weatherInfoData = [
     {
       icon: <TemperatureIcon className="w-7 h-7 opacity-80" />,
@@ -30,16 +30,24 @@ const WeatherDisplay = ({ isLoading, weather }: CurrentCityWeatherType) => {
     },
   ];
 
+  const renderWeather = () => {
+    return (
+      <>
+        {weatherInfoData.map((info) => (
+          <WeatherInfo
+            key={info.label}
+            icon={info.icon}
+            label={info.label}
+            value={info.value}
+          />
+        ))}
+      </>
+    );
+  };
+
   return (
     <div className="grid grid-cols-3 gap-3 sm:gap-5">
-      {weatherInfoData.map((info) => (
-        <WeatherInfo
-          key={info.label}
-          icon={info.icon}
-          label={info.label}
-          value={info.value}
-        />
-      ))}
+      {isLoading ? <Skeletons count={3} /> : renderWeather()}
     </div>
   );
 };

@@ -1,12 +1,13 @@
-import {getCountry} from 'iso-3166-1-alpha-2';
-import {debounce} from 'lodash';
+import { getCountry } from 'iso-3166-1-alpha-2';
+import { debounce } from 'lodash';
+import { useRef } from 'react';
 import LocationService from '@/services/location.service';
 import CustomAsyncSelect from '@/components/async-select';
 
-import {CityType} from '@/@types/weather';
-import {LatLonType, LocationType} from '@/@types/common';
+import { CityType } from '@/@types/weather';
+import { LatLonType, LocationType } from '@/@types/common';
 import Logo from '@/components/logo';
-import {Button} from '@/components';
+import { Button } from '@/components';
 
 type LocationProp = {
   setCoordinates: (value: LocationType) => void;
@@ -60,6 +61,14 @@ const LocationSearch = (props: LocationProp) => {
   const handleChange = ({ label, lon, lat }: SuggestionType) =>
     setCoordinates({ lon, lat, name: label.split(',')[0] });
 
+  const inputRef: any = useRef();
+
+  const handleOnClear = () => {
+    if (inputRef?.current?.clearInput) {
+      inputRef.current.clearInput();
+    }
+    setUserLocation();
+  };
   return (
     <div className="flex gap-6 flex-wrap justify-between py-6 sm:py-8">
       <Logo />
@@ -69,9 +78,10 @@ const LocationSearch = (props: LocationProp) => {
             placeholder="Search by a city name"
             fetchHandler={fetchSuggestion}
             handleChange={handleChange}
+            ref={inputRef}
           />
         </div>
-        <Button className="px-6" onClick={setUserLocation}>
+        <Button className="px-6" onClick={handleOnClear}>
           Clear
         </Button>
       </div>
